@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& a, int target) {
+        int n=a.size();
+        unordered_map<int,int>mpp;
+        // 16 july Raghav Sapra
+        for(int i=0;i<n;i++){
+            int rem = target - a[i];
+            if(mpp.find(rem) != mpp.end()){
+                return {mpp[rem],i};
+            }
+            mpp[a[i]] = i;
+        }
+        return {};
+    }
+};

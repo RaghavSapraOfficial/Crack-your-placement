@@ -1,0 +1,18 @@
+class Solution {
+public:
+    void sortColors(vector<int>& a) {
+        // 16 july RAGHAV SAPRA
+        int n=a.size(),s=0,e=n-1,m=0;
+        while(m<=e){
+            if(a[m] == 0){
+                swap(a[s++],a[m++]);
+            }
+            else if(a[m] == 1){
+                m++;
+            }
+            else{
+                swap(a[m],a[e--]);
+            }
+        }
+    }
+};

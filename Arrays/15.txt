@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& a) {
+        // 17 july Raghav Sapra
+        int n=a.size();
+        vector<vector<int>>ans;
+        sort(a.begin(),a.end());
+        for(int i=0;i<n;i++){
+            while(i!=0 && i<n && a[i]==a[i-1]){
+                i++;
+            }
+            if(i>=n) break;
+            int rem = a[i];
+            if(rem!=0){
+                rem*=-1;
+            }
+            int j=i+1,k=n-1;
+            while(j<k){
+                int sum = a[j] + a[k];
+                if(sum == rem){
+                    ans.push_back({a[i],a[j],a[k]});
+                    j++;
+                    k--;
+                    while(j<k && a[j] == a[j-1]){
+                        j++;
+                    }
+                    while(j<k && a[k] == a[k+1]){
+                        k--;
+                    }
+                }
+                else if(sum < rem){
+                    j++;
+                }else{
+                    k--;
+                }
+            }
+        }
+        return ans;
+    }
+};

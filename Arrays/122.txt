@@ -1,0 +1,52 @@
+class Solution {
+    int solve(vector<int>& a,int i,bool buy,vector<vector<int>>&dp){
+        if(i==a.size()){
+            return 0;
+        }
+        if(dp[i][buy] != -1){
+            return dp[i][buy];
+        }
+        int take = INT_MIN;
+        int ntake = INT_MIN;
+        if(buy){
+            take = -a[i] + solve(a,i+1,false,dp);
+            ntake = 0 + solve(a,i+1,true,dp);
+        }else{
+            take = a[i] + solve(a,i+1,true,dp);
+            ntake = 0 + solve(a,i+1,false,dp);
+        }
+        return dp[i][buy] = max(take,ntake);
+    }
+public:
+    int maxProfit(vector<int>& a) {
+        int n=a.size();
+        vector<int>next(2,0),curr(2,0);
+        for(int i=n-1;i>=0;i--){
+            for(int j=0;j<=1;j++){
+                int take = INT_MIN;
+                int ntake = INT_MIN;
+                if(j){
+                    take = -a[i] + next[0];
+                    ntake = 0 + next[1];
+                }else{
+                    take = a[i] + next[1];
+                    ntake = 0 + next[0];
+                }
+                curr[j] = max(take,ntake);
+            }
+            next=curr;
+        }
+        return next[1];
+    }
+    int maxProfit(vector<int>& a) {
+        // 17 july Raghav Sapra
+        int n=a.size();
+        vector<int>next(2,0),curr(2,0);
+        for(int i=n-1;i>=0;i--){
+            curr[0] = max(a[i] + next[1],next[0]);
+            curr[1] = max(-a[i] + next[0],next[1]);
+            next=curr;
+        }
+        return next[1];
+    }
+};

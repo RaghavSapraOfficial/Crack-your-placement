@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& a, int k) {
+        // 18 july Raghav Sapra
+        int n = a.size();
+        unordered_map<int,int>mpp;
+        mpp[0] = 1;
+        int ans=0,sum=0;
+        for(int i=0;i<n;i++){
+            sum+=a[i];
+            int rem = sum - k;
+            if(mpp.find(rem) != mpp.end()){
+                ans+=mpp[rem];
+            }
+            mpp[sum]+=1;
+        }
+        return ans;
+    }
+};

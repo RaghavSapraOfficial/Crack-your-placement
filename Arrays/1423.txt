@@ -1,1 +1,21 @@
 // abhi krta hoon
+brilliant question
+class Solution {
+public:
+    int maxScore(vector<int>& a, int k) {
+        // 17 july raghav sapra
+        int n = a.size();
+        int l = k-1,r=n-1;
+        int lsum = accumulate(a.begin(),a.begin()+k,0);
+        int res = lsum;
+        int rsum=0;
+        while(l>=0){
+            lsum-=a[l];
+            l-=1;
+            rsum+=a[r];
+            r-=1;
+            res = max(res,lsum + rsum);
+        }
+        return res;
+    }
+};

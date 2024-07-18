@@ -13,3 +13,25 @@ public:
         return -1;
     }
 };
+
+
+
+class Solution:
+    def findDuplicate(self, a: List[int]) -> int:
+        slow,fast=0,0
+        while True:
+            slow = a[slow]
+            fast = a[a[fast]]
+
+            if fast == slow: 
+                break 
+        
+        slow = 0
+        while True:
+            if a[slow] != a[fast]:
+                slow = a[slow]
+                fast = a[fast]
+            else:
+                return a[slow]
+        
+        return -1

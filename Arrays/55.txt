@@ -1,0 +1,11 @@
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        n = len(nums) 
+        # 18 july Raghav Sapra
+        goal = n - 1
+        for r in range(n-2,-1,-1):
+            if(nums[r] + r >= goal):
+                goal = r
+
+        return goal == 0
+        

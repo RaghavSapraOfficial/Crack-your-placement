@@ -1,2 +1,56 @@
 // reverse pairs
 abhi krta hoon
+class Solution {
+    void merge(vector<int>& a,int l,int m,int h){
+        // 22 july Raghav Sapra
+        int p1 = m-l+1;
+        int p2 = h-m;
+        vector<int>b(p1);
+        vector<int>c(p2);
+        for(int i=0;i<p1;i++){
+            b[i] = a[l + i];
+        }
+        for(int i=0;i<p2;i++){
+            c[i] = a[m+1+i];
+        }
+        int i=0,j=0,k=l;
+        while(i<p1 && j<p2){
+            if(b[i] <= c[j]){
+                a[k++] = b[i++];
+            }
+            else{
+                a[k++] = c[j++];
+            }
+        }
+        while(i<p1){
+            a[k++] = b[i++];
+        }
+        while(j<p2){
+            a[k++] = c[j++];
+        }
+    }
+    int mergeSort(vector<int>& a,int l,int h){
+        if(l>=h){
+            return 0;
+        }
+        int ans=0;
+        int m = (l + h)/2;
+        ans+=mergeSort(a,l,m);
+        ans+=mergeSort(a,m+1,h);
+        int right = m+1;
+        for(int i=l;i<=m;i++){
+            while(right<=h && 1LL * a[i] > 1LL*2 * a[right]){
+                right++;
+            }
+            ans+=(right-m-1);
+        }
+        merge(a,l,m,h);
+        return ans;
+    }
+public:
+    int reversePairs(vector<int>& a) {
+        int n=a.size();
+        int val = mergeSort(a,0,n-1);
+        return val; 
+    }
+};  

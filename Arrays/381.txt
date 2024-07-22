@@ -1,0 +1,52 @@
+class RandomizedCollection {
+    // 22 july Raghav Sapra
+    unordered_map<int,int>mpp;
+    vector<int>v;
+public:
+    RandomizedCollection() {
+        
+    }
+    
+    bool insert(int val) {
+        v.push_back(val);
+        if(mpp.find(val) == mpp.end()){
+            mpp[val]++;
+            return true;
+        }
+        mpp[val]++;
+        return false;
+    }
+    
+    bool remove(int val) {
+        if(mpp.find(val) == mpp.end()){
+            return false;
+        }
+        if(mpp[val] == 1){
+            mpp.erase(val);
+        }else{
+            mpp[val]--;
+        }
+        int j=-1;
+        for(int i=0;i<v.size();i++){
+            if(v[i] == val){
+                j=i;
+                break;
+            }
+        }
+        swap(v[v.size()-1],v[j]);
+        v.pop_back();
+        return true;
+    }
+    
+    int getRandom() {
+        return v[rand() % (v.size())];
+    }
+};
+
+/** 
+ * Your RandomizedCollection object will be instantiated and called as such:
+ * RandomizedCollection* obj = new RandomizedCollection();
+ * bool param_1 = obj->insert(val);
+ * bool param_2 = obj->remove(val);
+ * int param_3 = obj->getRandom();
+ */

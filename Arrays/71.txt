@@ -1,0 +1,38 @@
+class Solution:
+    def simplifyPath(self, s: str) -> str:
+        # 22 july Raghav Sapra
+        lis = s.split("/")
+        stack = []
+        for dir in lis:
+            if dir in ['',' ','.' ,'/']:
+                continue
+            if dir == '..':
+                if stack:
+                    stack.pop()
+            else:
+                stack.append(dir)
+
+        return "/" + "/".join(stack)
+
+
+class Solution:
+    def simplifyPath(self, s: str) -> str:
+        lis = s.split("/")
+        stack = []
+        for dir in lis:
+            if dir in ['',' ','.' ,'/']:
+                continue
+            if dir == '..':
+                if stack:
+                    stack.pop()
+            else:
+                stack.append(dir)
+        
+        ans='/'
+        for dir in stack:
+            ans+= (dir + '/')
+        
+        if len(ans) == 1: 
+            return "/" 
+        else:
+            return ans[:-1]

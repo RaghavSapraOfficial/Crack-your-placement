@@ -1,0 +1,51 @@
+# 22 july Raghav Sapra
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        # 22 july Raghav Sapra
+        res = []
+        perm = []
+        count={n:0 for n in nums}
+        for n in nums:
+            count[n] += 1
+        
+        def dfs():
+            if len(perm) == len(nums):
+                res.append(perm.copy())
+                return; 
+
+            for n in  count:
+                if count[n] > 0:
+                    count[n] -= 1
+                    perm.append(n)
+                    dfs()
+                    perm.pop()
+                    count[n]+=1
+
+        dfs()
+        return res
+        
+
+
+// CPP code
+class Solution {
+    void solve(vector<int>& a,int index,int n,set<vector<int>>& ans){
+        if(index >= n){
+            ans.insert(a);
+            return;
+        }
+        for(int i=index;i<n;i++){
+            swap(a[index],a[i]);
+            solve(a,index+1,n,ans);
+            swap(a[index],a[i]);
+        }
+    }
+public:
+    vector<vector<int>> permuteUnique(vector<int>& a) {
+        int n=a.size();
+        sort(a.begin(),a.end());
+        set<vector<int>>ans;
+        solve(a,0,n,ans);
+        vector<vector<int>>v(ans.begin(),ans.end());
+        return v;
+    }
+};

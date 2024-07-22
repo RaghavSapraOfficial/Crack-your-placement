@@ -1,0 +1,33 @@
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        # 22 july Raghav Sapra
+        l,r=0,len(s)-1
+        while l<r:
+            if s[l] == s[r]:
+                l+=1
+                r-=1
+            else:
+                def solve(l,r):
+                    while l < r:
+                        if s[l] == s[r]:
+                            l+=1
+                            r-=1
+                        else:
+                            return False
+                    return True
+                return solve(l+1,r) or solve(l,r-1)
+        
+        return True
+
+
+
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        l,r=0,len(s)-1
+        # 22 july Raghav Sapra
+        while l<r:
+            if s[l] != s[r]:
+                skipL,skipR = s[l+1:r+1],s[l:r]
+                return skipL == skipL[::-1] or skipR == skipR[::-1]
+            l,r=l+1,r-1
+        return True

@@ -1,0 +1,22 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
+        s = ""
+        # 22 july Raghav Sapra
+        def solve(open,close,s):
+            if open == 0:
+                s += ')' * close
+                res.append(s)
+                return
+
+            s += '('
+            solve(open-1,close,s)
+            s = s[:-1]
+
+            if n-open > n-close:
+                s += ')'
+                solve(open,close-1,s)
+                s = s[:-1]
+        
+        solve(n,n,s)
+        return res

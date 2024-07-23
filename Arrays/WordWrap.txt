@@ -1,0 +1,26 @@
+class Solution {
+    // 23 july Raghav Sapra
+    int dp[501][2001];
+    int rec(int i,int rem,vector<int>&a, int& k){
+        if(i==a.size()){
+            return 0;
+        }
+        if(dp[i][rem] != -1){
+            return dp[i][rem];
+        }
+        int ans;
+        if(a[i] > rem){
+            ans = (rem+1)*(rem+1) + rec(i+1,k-a[i]-1,a,k);
+        }else{
+            int c1 = (rem+1)*(rem+1) + rec(i+1,k-a[i]-1,a,k);
+            int c2 = rec(i+1,rem-a[i]-1,a,k);
+            ans=min(c1,c2);
+        }
+        return dp[i][rem] = ans;
+    }
+public:
+    int solveWordWrap(vector<int>a, int k){
+        memset(dp,-1,sizeof(dp));
+        return rec(0,k,a,k);
+    } 
+};

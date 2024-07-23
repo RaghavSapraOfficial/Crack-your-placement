@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int calculate(string s) {
+        // 23 july Raghav Sapra
+        stack<int>st;
+        int n=s.size();
+        char sign = '+';
+        for(int i=0;i<n;i++){
+            char ch = s[i];
+            if('0' <= ch && ch <='9'){
+                int val=0;
+                while(i<n && s[i]<='9' && s[i]>='0'){
+                    val=val*10 + (s[i]-'0');
+                    i++;
+                }
+                i--;
+                if(sign == '+' ){
+                    st.push(val);
+                }else if(sign=='-'){
+                    st.push(-val);
+                }
+                else if(sign == '*'){
+                    int top = st.top();
+                    st.pop();
+                    st.push(top * val);
+                }else{
+                    int top = st.top();
+                    st.pop();
+                    st.push(top/val);
+                }
+            }else if(ch != ' '){
+                sign = ch;
+            }
+        }
+        int ans=0;
+        while(!st.empty()){
+            ans+=st.top();
+            st.pop();
+        }
+        return ans;
+    }
+};

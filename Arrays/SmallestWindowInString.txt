@@ -1,2 +1,36 @@
 // krta hoon abhi
 Smallest window in a string containing all the characters of another string
+class Solution
+{
+    public:
+    //Function to find the smallest window in the string s consisting
+    //of all the characters of string p.
+    string smallestWindow (string s, string t){
+        // 23 july Raghav Sapra
+        if(s.empty() || t.empty()) return "-1";
+        vector<int>hash(256,0);
+        int l=0,r=0;
+        int n=s.size(),m=t.size(),si=-1,mn=INT_MAX,cnt=0;
+        
+        for(int i=0;i<m;i++) hash[t[i]]++;
+        while(r<n){
+            if(hash[s[r]] > 0){
+                cnt=cnt+1;
+            }
+            hash[s[r]]--;
+            while(l<=r && cnt == m){
+                if(r-l+1 < mn){
+                    si=l;
+                    mn = r-l+1;
+                }
+                hash[s[l]]++;
+                if(hash[s[l]] > 0){
+                    cnt=cnt-1;
+                }
+                l++;
+            }
+            r+=1;
+        }
+        return si == -1?"-1":s.substr(si,mn);
+    }
+};

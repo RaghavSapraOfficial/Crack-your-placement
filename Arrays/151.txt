@@ -1,0 +1,12 @@
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        words = s.strip().split(" ")
+        # 23 july Raghav Sapra
+        ans=''
+        for word in reversed(words):
+            if word:
+                word=word.strip()
+                ans += word
+                ans += ' '
+        
+        return ans[:-1]

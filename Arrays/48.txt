@@ -1,0 +1,19 @@
+class Solution {
+public:
+    void rotate(vector<vector<int>>& a) {
+        // reverse each col
+        // 24 april Raghav Sapra
+        int m=a.size(),n=a[0].size();
+        for(int j=0;j<n;j++){
+            int k=0,l=m-1;
+            while(k<l){
+                swap(a[k++][j],a[l--][j]);
+            }
+        }
+        for(int i=0;i<m;i++){
+            for(int j=i;j<n;j++){
+                swap(a[i][j],a[j][i]);
+            }
+        }
+    }
+};

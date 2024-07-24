@@ -1,0 +1,25 @@
+// to do count number of islands
+class Solution:
+    def numIslands(self, a: List[List[str]]) -> int:
+        # 24 july Raghav Sapra
+        cnt = 0
+        ROWS,COLS = len(a),len(a[0])
+        vis = [[0 for j in range(COLS)] for i in range(ROWS)]
+        def dfs(i,j,vis):
+            if i<0 or i>=ROWS or j<0 or j>=COLS or vis[i][j] or a[i][j] == "0":
+                return
+            
+            vis[i][j] = 1
+            dx = [1,0,-1,0] 
+            dy = [0,1,0,-1]
+            for k in range(4):
+                x = i + dx[k]
+                y = j + dy[k]
+                dfs(x,y,vis)
+
+        for i in range(ROWS):
+            for j in range(COLS):
+                if a[i][j] == "1" and (not vis[i][j]):
+                    dfs(i,j,vis)
+                    cnt+=1
+        return cnt
